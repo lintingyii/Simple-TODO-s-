@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import ToggleSwitch from "./ToggleSwitch";
 import "./style.css";
 
 export default function App() {
@@ -6,74 +7,84 @@ export default function App() {
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS");
     if (localValue == null) return [];
-
     return JSON.parse(localValue);
+  });
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const localTheme = localStorage.getItem("DARK_MODE");
+    return localTheme === "true";
   });
 
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
   }, [todos]);
 
+  useEffect(() => {
+    localStorage.setItem("DARK_MODE", isDarkMode);
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    setTodos((currentTodos) => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title: newItem, completed: false },
-      ];
-    });
-
+    setTodos((currentTodos) => [
+      ...currentTodos,
+      { id: crypto.randomUUID(), title: newItem, completed: false },
+    ]);
     setNewItem("");
   }
 
   function toggleTodo(id, completed) {
-    setTodos((currentTodos) => {
-      return currentTodos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, completed };
-        }
-
-        return todo;
-      });
-    });
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed } : todo
+      )
+    );
   }
 
   function deleteTodo(id) {
-    setTodos((currentTodos) => {
-      return currentTodos.filter((todo) => todo.id !== id);
-    });
+    setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   }
-  console.log(todos);
 
   return (
     <>
       <div className="page-header">
-        <img className="pin" src="./pin.png" alt="pin"/>
-        <h1 style={{whiteSpace:'nowrap'}}>
-          Simple TODO
-          <span style={{ fontFamily: "serif", fontStyle: "italic" }}>(s)</span>
-        </h1>
-      </div>
-      <div className="content">
-      <form onSubmit={handleSubmit} className="new-item-form">
-        <div className="form-row">
-          <label htmlFor="item">New Item</label>
-          <input
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            type="text"
-            id="item"
-          />
+        <img className="pin" src="./pin.png" alt="pin" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "right",
+          }}
+        >
+          <h1 style={{ whiteSpace: "nowrap", margin:'1rem 0rem' }}>
+            Simple TODO
+            <span style={{ fontFamily: "serif", fontStyle: "italic" }}>
+              (s)
+            </span>
+          </h1>
         </div>
-        <button className="btn">Add</button>
-      </form>
-      <form className="list-form">
-        <h1 className="header">Todo List</h1>
-        <ul className="list">
-          {todos.length === 0 && "No Todos"}
-          {todos.map((todo) => {
-            return (
+      </div>
+      <ToggleSwitch
+        checked={isDarkMode}
+        onChange={() => setIsDarkMode((prev) => !prev)}
+      />
+      <div className="content">
+        <form onSubmit={handleSubmit} className="new-item-form">
+          <div className="form-row">
+            <label htmlFor="item">New Item</label>
+            <input
+              value={newItem}
+              onChange={(e) => setNewItem(e.target.value)}
+              type="text"
+              id="item"
+            />
+          </div>
+          <button className="btn">Add</button>
+        </form>
+        <form className="list-form">
+          <h1 className="header">Todo List</h1>
+          <ul className="list">
+            {todos.length === 0 && "No Todos"}
+            {todos.map((todo) => (
               <li key={todo.id}>
                 <label>
                   <input
@@ -105,13 +116,14 @@ export default function App() {
                   </svg>
                 </button>
               </li>
-            );
-          })}
-        </ul>
-      </form>
-      <div className="footer">
-        © Tingyi Lin  |  All rights reserved
-      </div>
+            ))}
+          </ul>
+        </form>
+        <div className="footer">© Tingyi Lin | All rights reserved</div>
+        {/* <ToggleSwitch
+          checked={isDarkMode}
+          onChange={() => setIsDarkMode((prev) => !prev)}
+        /> */}
       </div>
     </>
   );

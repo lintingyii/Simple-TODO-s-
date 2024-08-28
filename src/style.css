@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #d8d8d9;
+  background: #D6D6D6;
   color: #1a1a1a;
   width: 95%;
   max-width: 500px;
@@ -57,7 +57,7 @@ body {
   font-weight: 600;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #e6ea66;
+  background-color: #E9DCD3;
 }
 
 .list-form {
@@ -73,7 +73,7 @@ body {
   font-weight: 600;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #FB863D;
+  background-color: #DA6343;
 }
 
 .form-row {
@@ -102,15 +102,15 @@ body {
 }
 
 .btn.btn-danger {
-  background: hsl(0, 100%, 40%, 0.1);
-  border: 1px solid #C30020;
-  color: #C30020;
+  background: #1a1a1a;
+  color: #DA6343;
   padding: 6px 7px 7px 5px;
+  border: none;
 }
 
 .btn.btn-danger:hover,
 .btn.btn-danger:focus-visible {
-  background: hsl(0, 100%, 40%, 0.2);
+  background: #353535;
 }
 
 .new-item-form input {
@@ -120,11 +120,12 @@ body {
   border-radius: 0px;
   padding: 0.4rem 0.4rem;
   color: #1a1a1a;
+  font-weight: 400;
   font-size: 1rem;
 }
 
 .new-item-form input:focus {
-  border: 1px solid #787941;
+  border: 1px solid #877f7b;
 }
 
 .header {
@@ -199,16 +200,14 @@ li{
 
 .list li:has(input:checked) label::before {
   content: "✔";
-  background: #e6ea66;
+  background: #E9DCD3;
   color: #1a1a1a;
   font-size: 0.75rem;
   font-weight: bold;
-  text-decoration: none !important; 
 }
 
 .list li:has(input:checked) label:hover::before {
-  background: #e6ea66;
-  text-decoration: none !important;
+  background: #E9DCD3;
 }
 
 .footer {
@@ -229,4 +228,63 @@ li{
   .pin {
     height: 65px;
   }
+}
+
+/*  Dark mode  */
+/* ________________________________ */
+
+body.dark-mode {
+  background: #1a1a1a;
+}
+
+body.dark-mode .page-header {
+  color: #E2DBD5;
+  border-bottom: 1.5px solid #E2DBD5;
+}
+
+body.dark-mode .new-item-form{
+  background-color: #2C2D31;
+  color: #E2DBD5;
+  border-color: #E2DBD5;
+}
+
+body.dark-mode .list-form {
+  background-color: #347064;
+  color: #E2DBD5;
+  border-color: #E2DBD5;
+}
+
+body.dark-mode .new-item-form input {
+  background: #3F4045;
+  color: #E2DBD5;
+  border-color: #E2DBD5;
+}
+
+body.dark-mode .btn.btn-danger {
+  background: #E2DBD5;
+  color: #347064;
+}
+
+body.dark-mode .btn:focus-visible {
+  background:#E2DBD5;
+}
+
+body.dark-mode .footer {
+  background-color: #38393f;
+  color: #E2DBD5;
+  border-color: #E2DBD5;
+}
+
+body.dark-mode .list li:has(input:checked) p {
+ color: #f5f5f5;
+}
+
+body.dark-mode .btn {
+  background-color: #E2DBD5;
+  border-color: #E2DBD5;
+  color: #2C2D31;
+}
+
+body.dark-mode .btn:hover {
+  background:#f6f0eb;
 }
