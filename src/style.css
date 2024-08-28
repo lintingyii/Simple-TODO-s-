@@ -170,10 +170,6 @@ li{
   align-items: center;
 }
 
-/* .list li:has(input:focus-visible) label {
-  outline: 1px solid hsl(200, 100%, 100%);
-} */
-
 .list li input {
   outline: none;
   width: 0;
