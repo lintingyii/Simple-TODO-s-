@@ -1,0 +1,16 @@
+{
+    "short_name": "TODOs",
+    "name": "Simple TODOs WebAPP",
+    "icons": [
+      {
+        "src": "pin.jpeg",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000"
+  }
+  
