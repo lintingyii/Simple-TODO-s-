@@ -50,7 +50,7 @@ export default function App() {
     <>
       <div className="page-header">
         <img className="pin" src="./pin.png" alt="pin"/>
-        <h1>
+        <h1 style={{whiteSpace:'nowrap'}}>
           Simple TODO
           <span style={{ fontFamily: "serif", fontStyle: "italic" }}>(s)</span>
         </h1>

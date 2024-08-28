@@ -117,7 +117,7 @@ body {
   outline: none;
   border: 1px solid #1a1a1a;
   background: #e2dbdd;
-  /* border-radius: 0.25em; */
+  border-radius: 0px;
   padding: 0.4rem 0.4rem;
   color: #1a1a1a;
   font-size: 1rem;
@@ -224,4 +224,13 @@ li{
   color: #1a1a1a;
   margin-top: 2vh;
   border: 1px solid #1a1a1a;
+}
+
+@media only screen and (max-width: 480px) {
+  .page-header {
+    font-size: 1.2rem;
+  }
+  .pin {
+    height: 65px;
+  }
 }
