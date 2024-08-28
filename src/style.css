@@ -1,0 +1,227 @@
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: #d8d8d9;
+  color: #1a1a1a;
+  width: 95%;
+  max-width: 500px;
+  padding: 1rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.page-header {
+  box-sizing: border-box;
+  color: #1a1a1a;
+  font-size: 1.3rem;
+  border-bottom: 1.5px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  /* background-color: #e2dbdd; */
+  width: 100%;
+  z-index: 10;
+  padding: 0;
+  margin-bottom: 2vh;
+}
+
+.content {
+  width: 100%;
+  max-height: 80vh; /* 填满剩余屏幕高度 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 内容超出时自动滚动 */
+  box-sizing: border-box;
+}
+
+
+.pin {
+  height: 70px;
+  display: block;
+}
+
+.new-item-form {
+  font-size: 1.5rem;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.2rem;
+  border: 1px solid #1a1a1a;
+  /* border-radius: 1.2rem; */
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #e6ea66;
+}
+
+.list-form {
+  overflow: auto; 
+  display: flex;
+  flex-direction: column;
+  margin-top: 2vh;
+  gap: 0.5rem;
+  padding: 1.2rem;
+  height: 100%;
+  border: 1px solid #1a1a1a;
+  /* border-radius: 1.2rem; */
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #FB863D;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn {
+  background-color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0.4rem 0.4rem;
+  /* border-radius: 50px; */
+  cursor: pointer;
+  outline: none;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background:#222;
+}
+
+.btn.btn-danger {
+  background: hsl(0, 100%, 40%, 0.1);
+  border: 1px solid #C30020;
+  color: #C30020;
+  padding: 6px 7px 7px 5px;
+}
+
+.btn.btn-danger:hover,
+.btn.btn-danger:focus-visible {
+  background: hsl(0, 100%, 40%, 0.2);
+}
+
+.new-item-form input {
+  outline: none;
+  border: 1px solid #1a1a1a;
+  background: #e2dbdd;
+  /* border-radius: 0.25em; */
+  padding: 0.4rem 0.4rem;
+  color: #1a1a1a;
+  font-size: 1rem;
+}
+
+.new-item-form input:focus {
+  border: 1px solid #787941;
+}
+
+.header {
+  font-size: 1.5rem;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}
+
+li{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  margin-left: 1rem;
+  list-style: none;
+}
+
+.list li:has(input:checked) p {
+  color: #1a1a1a;
+ text-decoration: line-through;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.list li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.list li label {
+  display: flex;
+  gap: 0.25rem;
+  cursor: pointer;
+  align-items: center;
+}
+
+/* .list li:has(input:focus-visible) label {
+  outline: 1px solid hsl(200, 100%, 100%);
+} */
+
+.list li input {
+  outline: none;
+  width: 0;
+  height: 0;
+  appearance: none;
+  pointer-events: none;
+  position: absolute;
+}
+
+.list li label::before {
+  content: "";
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: #e2dbdd;
+  border: 1px solid #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none !important; 
+}
+
+.list li label:hover::before {
+  background: #e2dbdd;
+  text-decoration: none !important; 
+}
+
+.list li:has(input:checked) label::before {
+  content: "✔";
+  background: #e6ea66;
+  color: #1a1a1a;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-decoration: none !important; 
+}
+
+.list li:has(input:checked) label:hover::before {
+  background: #e6ea66;
+  text-decoration: none !important;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  padding: .8rem;
+  justify-content: center;
+  background-color: #e2dbdd;
+  color: #1a1a1a;
+  margin-top: 2vh;
+  border: 1px solid #1a1a1a;
+}
