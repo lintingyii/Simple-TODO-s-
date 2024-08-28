@@ -49,7 +49,7 @@ export default function App() {
   return (
     <>
       <div className="page-header">
-        <img className="pin" src="./pin.png" />
+        <img className="pin" src="./pin.png" alt="pin"/>
         <h1>
           Simple TODO
           <span style={{ fontFamily: "serif", fontStyle: "italic" }}>(s)</span>
