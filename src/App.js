@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./style.css";
-import Switch from 'rc-switch';
 
 export default function App() {
   const [newItem, setNewItem] = useState("");
@@ -111,7 +110,7 @@ export default function App() {
         </ul>
       </form>
       <div className="footer">
-        © Tingyi Lin  |  All rights reserved 2024
+        © Tingyi Lin  |  All rights reserved
       </div>
       </div>
     </>
