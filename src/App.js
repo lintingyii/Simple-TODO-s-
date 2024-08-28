@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style.css";
+import Switch from 'rc-switch';
 
 export default function App() {
   const [newItem, setNewItem] = useState("");
