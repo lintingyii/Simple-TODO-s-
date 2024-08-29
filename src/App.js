@@ -44,6 +44,10 @@ export default function App() {
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   }
 
+  function clearTodos() {
+    setTodos([]); // 清空 todos 列表
+  }
+
   return (
     <>
       <div className="page-header">
@@ -55,7 +59,7 @@ export default function App() {
             alignItems: "right",
           }}
         >
-          <h1 style={{ whiteSpace: "nowrap", margin:'1rem 0rem' }}>
+          <h1 style={{ whiteSpace: "nowrap", margin: "1rem 0rem" }}>
             Simple TODO
             <span style={{ fontFamily: "serif", fontStyle: "italic" }}>
               (s)
@@ -81,7 +85,20 @@ export default function App() {
           <button className="btn">Add</button>
         </form>
         <form className="list-form">
-          <h1 className="header">Todo List</h1>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom:'.5rem'
+            }}
+          >
+            <h1 className="header">Todo List</h1>
+            <button className="btn btn-clearall" onClick={clearTodos}>
+              Clear All
+            </button>
+          </div>
           <ul className="list">
             {todos.length === 0 && "No Todos"}
             {todos.map((todo) => (
