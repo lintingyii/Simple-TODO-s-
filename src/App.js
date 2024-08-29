@@ -70,29 +70,45 @@ export default function App() {
     setDraggingIndex(null);
   }
 
-  function onTouchStart(index) {
-    setDraggingIndex(index);
-  }
+  let pressTimer = null;
 
+  function onTouchStart(index) {
+    pressTimer = setTimeout(() => {
+      setDraggingIndex(index);
+      if (navigator.vibrate) {
+        navigator.vibrate(100); // 震动100ms以提供反馈
+      }
+    }, 400);
+  }
+  
   function onTouchMove(e) {
     e.preventDefault(); // 防止默认滚动行为
+    if (draggingIndex === null) return; // 如果不在拖曳中，不处理移动事件
+  
     const touchLocation = e.targetTouches[0];
     const targetElement = document.elementFromPoint(
       touchLocation.clientX,
       touchLocation.clientY
     );
-
+  
     const targetIndex = todos.findIndex(
       (todo) => todo.id === targetElement?.dataset?.id
     );
-
+  
     if (targetIndex >= 0 && draggingIndex !== targetIndex) {
       onDragOver(targetIndex);
+      if (navigator.vibrate) {
+        navigator.vibrate(50); // 震动50ms以提供反馈
+      }
     }
   }
-
+  
   function onTouchEnd() {
+    clearTimeout(pressTimer);
     setDraggingIndex(null);
+    if (navigator.vibrate) {
+      navigator.vibrate(100); // 震动100ms以提供反馈
+    }
   }
 
   return (
