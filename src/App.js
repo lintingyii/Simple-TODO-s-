@@ -14,6 +14,8 @@ export default function App() {
     return localTheme === "true";
   });
 
+  const [draggingIndex, setDraggingIndex] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("ITEMS", JSON.stringify(todos));
   }, [todos]);
@@ -46,6 +48,51 @@ export default function App() {
 
   function clearTodos() {
     setTodos([]); // 清空 todos 列表
+  }
+
+  function onDragStart(index) {
+    setDraggingIndex(index);
+  }
+
+  function onDragOver(index) {
+    if (draggingIndex === index) return;
+
+    const newTodos = [...todos];
+    const draggedItem = newTodos[draggingIndex];
+    newTodos.splice(draggingIndex, 1);
+    newTodos.splice(index, 0, draggedItem);
+
+    setDraggingIndex(index);
+    setTodos(newTodos);
+  }
+
+  function onDragEnd() {
+    setDraggingIndex(null);
+  }
+
+  function onTouchStart(index) {
+    setDraggingIndex(index);
+  }
+
+  function onTouchMove(e) {
+    e.preventDefault(); // 防止默认滚动行为
+    const touchLocation = e.targetTouches[0];
+    const targetElement = document.elementFromPoint(
+      touchLocation.clientX,
+      touchLocation.clientY
+    );
+
+    const targetIndex = todos.findIndex(
+      (todo) => todo.id === targetElement?.dataset?.id
+    );
+
+    if (targetIndex >= 0 && draggingIndex !== targetIndex) {
+      onDragOver(targetIndex);
+    }
+  }
+
+  function onTouchEnd() {
+    setDraggingIndex(null);
   }
 
   return (
@@ -91,7 +138,7 @@ export default function App() {
               width: "100%",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom:'.5rem'
+              marginBottom: ".5rem",
             }}
           >
             <h1 className="header">Todo List</h1>
@@ -101,15 +148,39 @@ export default function App() {
           </div>
           <ul className="list">
             {todos.length === 0 && "No Todos"}
-            {todos.map((todo) => (
-              <li key={todo.id}>
+            {todos.map((todo, index) => (
+              <li
+                key={todo.id}
+                draggable
+                onDragStart={() => onDragStart(index)}
+                onDragOver={() => onDragOver(index)}
+                onDragEnd={onDragEnd}
+                onTouchStart={() => onTouchStart(index)}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+                style={{
+                  opacity: draggingIndex === index ? 0.5 : 1,
+                  borderLeft: draggingIndex === index ? "2px solid #000" : undefined,
+                  paddingLeft: '1rem',
+                  // backgroundColor:
+                  //   draggingIndex === index ? "#E9DCD3" : undefined,
+                  // padding: draggingIndex === index ? "4px" : undefined,
+                  // borderRadius: draggingIndex === index ? "4px" : undefined,
+                  // boxShadow:
+                  //   draggingIndex === index
+                  //     ? "rgba(0,0,0,0.5)"
+                  //     : undefined,
+                  cursor: "move",
+                }}
+                data-id={todo.id}
+              >
                 <label>
                   <input
                     type="checkbox"
                     checked={todo.completed}
                     onChange={(e) => toggleTodo(todo.id, e.target.checked)}
                   />
-                  <p style={{ margin: "4px" }}>{todo.title}</p>
+                  <p style={{ margin: "4px", display:'flex' }}>{todo.title}</p>
                 </label>
                 <button
                   onClick={() => deleteTodo(todo.id)}
@@ -137,10 +208,6 @@ export default function App() {
           </ul>
         </form>
         <div className="footer">© Tingyi Lin | All rights reserved</div>
-        {/* <ToggleSwitch
-          checked={isDarkMode}
-          onChange={() => setIsDarkMode((prev) => !prev)}
-        /> */}
       </div>
     </>
   );

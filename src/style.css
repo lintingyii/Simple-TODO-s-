@@ -143,19 +143,20 @@ li{
 .list {
   margin: 0;
   padding: 0;
-  margin-left: 1rem;
   list-style: none;
+  border-left: 2px solid #DA6343;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .list li:has(input:checked) p {
   color: #1a1a1a;
  text-decoration: line-through;
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+ display: flex;
+ flex-grow: 1;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .list li {
@@ -191,11 +192,13 @@ li{
   justify-content: center;
   align-items: center;
   text-decoration: none !important; 
+  flex-shrink: 0;
 }
 
 .list li label:hover::before {
   background: #e2dbdd;
   text-decoration: none !important; 
+  flex-shrink: 0;
 }
 
 .list li:has(input:checked) label::before {
@@ -204,10 +207,12 @@ li{
   color: #1a1a1a;
   font-size: 0.75rem;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .list li:has(input:checked) label:hover::before {
   background: #E9DCD3;
+  flex-shrink: 0;
 }
 
 .footer {
