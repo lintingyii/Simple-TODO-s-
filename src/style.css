@@ -299,3 +299,7 @@ body.dark-mode .btn {
 body.dark-mode .btn:hover {
   background:#f6f0eb;
 }
+
+body.dark-mode .list {
+  border-left: 2px solid #347064;
+}

@@ -80,21 +80,21 @@ export default function App() {
       }
     }, 400);
   }
-  
+
   function onTouchMove(e) {
     e.preventDefault(); // 防止默认滚动行为
     if (draggingIndex === null) return; // 如果不在拖曳中，不处理移动事件
-  
+
     const touchLocation = e.targetTouches[0];
     const targetElement = document.elementFromPoint(
       touchLocation.clientX,
       touchLocation.clientY
     );
-  
+
     const targetIndex = todos.findIndex(
       (todo) => todo.id === targetElement?.dataset?.id
     );
-  
+
     if (targetIndex >= 0 && draggingIndex !== targetIndex) {
       onDragOver(targetIndex);
       if (navigator.vibrate) {
@@ -102,7 +102,7 @@ export default function App() {
       }
     }
   }
-  
+
   function onTouchEnd() {
     clearTimeout(pressTimer);
     setDraggingIndex(null);
@@ -176,8 +176,11 @@ export default function App() {
                 onTouchEnd={onTouchEnd}
                 style={{
                   opacity: draggingIndex === index ? 0.5 : 1,
-                  borderLeft: draggingIndex === index ? "2px solid #000" : undefined,
-                  paddingLeft: '1rem',
+                  borderLeft:
+                    draggingIndex === index
+                      ? `2px solid ${isDarkMode ? "#E2DBD5" : "#000"}` // 根据暗模式选择颜色
+                      : undefined,
+                  paddingLeft: "1rem",
                   // backgroundColor:
                   //   draggingIndex === index ? "#E9DCD3" : undefined,
                   // padding: draggingIndex === index ? "4px" : undefined,
@@ -196,7 +199,7 @@ export default function App() {
                     checked={todo.completed}
                     onChange={(e) => toggleTodo(todo.id, e.target.checked)}
                   />
-                  <p style={{ margin: "4px", display:'flex' }}>{todo.title}</p>
+                  <p style={{ margin: "4px", display: "flex" }}>{todo.title}</p>
                 </label>
                 <button
                   onClick={() => deleteTodo(todo.id)}
