@@ -71,45 +71,52 @@ export default function App() {
   }
 
   let pressTimer = null;
+let touchMoved = false;
 
-  function onTouchStart(index) {
-    pressTimer = setTimeout(() => {
+function onTouchStart(index) {
+  touchMoved = false;
+  pressTimer = setTimeout(() => {
+    if (!touchMoved) {
       setDraggingIndex(index);
       if (navigator.vibrate) {
         navigator.vibrate(100); // 震动100ms以提供反馈
       }
-    }, 400);
-  }
+    }
+  }, 100); // 你可以根据需要调整这个时间
+}
 
-  function onTouchMove(e) {
-    e.preventDefault(); // 防止默认滚动行为
-    if (draggingIndex === null) return; // 如果不在拖曳中，不处理移动事件
+function onTouchMove(e) {
+  touchMoved = true; // 如果检测到移动，则取消长按操作
+  e.preventDefault(); // 防止默认滚动行为
+  if (draggingIndex === null) return; // 如果不在拖曳中，不处理移动事件
 
-    const touchLocation = e.targetTouches[0];
-    const targetElement = document.elementFromPoint(
-      touchLocation.clientX,
-      touchLocation.clientY
-    );
+  const touchLocation = e.targetTouches[0];
+  const targetElement = document.elementFromPoint(
+    touchLocation.clientX,
+    touchLocation.clientY
+  );
 
-    const targetIndex = todos.findIndex(
-      (todo) => todo.id === targetElement?.dataset?.id
-    );
+  const targetIndex = todos.findIndex(
+    (todo) => todo.id === targetElement?.dataset?.id
+  );
 
-    if (targetIndex >= 0 && draggingIndex !== targetIndex) {
-      onDragOver(targetIndex);
-      if (navigator.vibrate) {
-        navigator.vibrate(50); // 震动50ms以提供反馈
-      }
+  if (targetIndex >= 0 && draggingIndex !== targetIndex) {
+    onDragOver(targetIndex);
+    if (navigator.vibrate) {
+      navigator.vibrate(50); // 震动50ms以提供反馈
     }
   }
+}
 
-  function onTouchEnd() {
-    clearTimeout(pressTimer);
+function onTouchEnd() {
+  clearTimeout(pressTimer);
+  if (draggingIndex !== null) {
     setDraggingIndex(null);
     if (navigator.vibrate) {
       navigator.vibrate(100); // 震动100ms以提供反馈
     }
   }
+}
 
   return (
     <>
