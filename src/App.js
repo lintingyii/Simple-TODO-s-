@@ -163,7 +163,7 @@ export default function App() {
       />
       <div className="content">
         <form onSubmit={handleSubmit} className="new-item-form">
-          <div style={{display:'flex',flexDirection:'column',gap:'0.4rem'}}>
+          <div style={{display:'flex',flexDirection:'row',gap:'0.8rem',boxSizing:'border-box'}}>
           <div className="form-row">
             <label htmlFor="item">New Item</label>
             <input
@@ -180,7 +180,7 @@ export default function App() {
               onChange={(e) => setNewItemDate(e.target.value)}
               type="date"
               id="date"
-              style={{fontWeight:'500', width:'100%'}}
+              // style={{fontWeight:'500', width:'100%', height:'100%'}}
             />
           </div>
           </div>

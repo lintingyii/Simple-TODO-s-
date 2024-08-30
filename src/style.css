@@ -51,11 +51,11 @@ html {
 }
 
 .new-item-form {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   display: flex;
   height: auto;
   flex-direction: column;
-  gap: 1rem;
+  gap: .8rem;
   padding: 1.2rem;
   border: 1px solid #1a1a1a;
   /* border-radius: 1.2rem; */
@@ -85,6 +85,8 @@ html {
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  width: 50%;
+  box-sizing: border-box
 }
 
 .btn {
@@ -127,6 +129,13 @@ html {
   color: #1a1a1a;
   font-weight: 400;
   font-size: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.2;
 }
 
 .new-item-form input:focus {
@@ -134,7 +143,7 @@ html {
 }
 
 .header {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   display: flex;
   margin: 0;
 }
@@ -164,7 +173,7 @@ ul {
 .date-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  width: 100%;
 }
 
 .list {
@@ -336,15 +345,10 @@ body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(100%) sepia(100%) saturate(500%) hue-rotate(180deg);
 }
 
-input[type="date"]::-webkit-inner-spin-button {
+/* input[type="date"]::-webkit-inner-spin-button {
   display: none;
 }
 
 input[type="date"]::-webkit-clear-button {
   display: none;
-}
-
-input[type="date"] {
-  width: 100%;
-  box-sizing: border-box; /* 确保 padding 不会影响宽度 */
-}
+} */
