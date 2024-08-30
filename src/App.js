@@ -179,7 +179,7 @@ export default function App() {
               onChange={(e) => setNewItemDate(e.target.value)}
               type="date"
               id="date"
-              style={{fontWeight:'500'}}
+              style={{fontWeight:'500', width:'100%'}}
             />
           </div>
           <button className="btn">Add</button>
