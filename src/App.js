@@ -163,6 +163,7 @@ export default function App() {
       />
       <div className="content">
         <form onSubmit={handleSubmit} className="new-item-form">
+          <div style={{display:'flex',flexDirection:'column',gap:'0.4rem'}}>
           <div className="form-row">
             <label htmlFor="item">New Item</label>
             <input
@@ -181,6 +182,7 @@ export default function App() {
               id="date"
               style={{fontWeight:'500', width:'100%'}}
             />
+          </div>
           </div>
           <button className="btn">Add</button>
         </form>
@@ -262,6 +264,7 @@ export default function App() {
             ))}
           </ul>
         </form>
+        <div className="footer">© Tingyi Lin | All rights reserved</div>
       </div>
     </>
   );
