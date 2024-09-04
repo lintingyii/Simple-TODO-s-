@@ -9,6 +9,7 @@ const Dropdown = ({ onChange, selected }) => {
         <select value={selected} onChange={onChange}>
           <option value="clementine">Clementine</option>
           <option value="summer">Summer Soda</option>
+          <option value="branch">Branch</option>
         </select>
       </div>
     </div>

@@ -96,7 +96,7 @@
   color: #361a30;
 }
 
-/*  Matcha mode  */
+/*  Summer mode  */
 /* ________________________________ */
 
 .summer-mode .dropdown select {
@@ -109,3 +109,18 @@
 .summer-mode .title {
     color: #334ed8;
   }
+
+
+/*  Branch mode  */
+/* ________________________________ */
+
+.branch-mode .dropdown select {
+  color: #583431;
+  border: 1px solid #583431;
+}
+.branch-mode .dropdown::after {
+  color: #583431;
+}
+.branch-mode .title {
+    color: #583431;
+}

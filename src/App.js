@@ -27,6 +27,7 @@ export default function App() {
     localStorage.setItem("THEME", theme);
     document.body.classList.toggle("summer-mode", theme === "summer");
     document.body.classList.toggle("clementine-mode", theme === "clementine");
+    document.body.classList.toggle("branch-mode", theme === "branch");
   }, [theme]);
 
   function handleSubmit(e) {
