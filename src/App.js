@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import ToggleSwitch from "./ToggleSwitch";
+import Dropdown from "./Dropdown";
 import "./style.css";
+import "./Dropdown.css";
+import Marquee from "react-fast-marquee";
 
 export default function App() {
   const [newItem, setNewItem] = useState("");
-  const [newItemDate, setNewItemDate] = useState(""); 
+  const [newItemDate, setNewItemDate] = useState("");
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS");
     if (localValue == null) return [];
     return JSON.parse(localValue);
   });
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const localTheme = localStorage.getItem("DARK_MODE");
-    return localTheme === "true";
+  const [theme, setTheme] = useState(() => {
+    const localTheme = localStorage.getItem("THEME") || "clementine";
+    return localTheme;
   });
 
   const [draggingIndex, setDraggingIndex] = useState(null);
@@ -22,9 +24,10 @@ export default function App() {
   }, [todos]);
 
   useEffect(() => {
-    localStorage.setItem("DARK_MODE", isDarkMode);
-    document.body.classList.toggle("dark-mode", isDarkMode);
-  }, [isDarkMode]);
+    localStorage.setItem("THEME", theme);
+    document.body.classList.toggle("summer-mode", theme === "summer");
+    document.body.classList.toggle("clementine-mode", theme === "clementine");
+  }, [theme]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -96,9 +99,9 @@ export default function App() {
   }
 
   function onTouchMove(e) {
-    touchMoved = true; 
-    e.preventDefault(); 
-    if (draggingIndex === null) return; 
+    touchMoved = true;
+    e.preventDefault();
+    if (draggingIndex === null) return;
 
     const touchLocation = e.targetTouches[0];
     const targetElement = document.elementFromPoint(
@@ -113,7 +116,7 @@ export default function App() {
     if (targetIndex >= 0 && draggingIndex !== targetIndex) {
       onDragOver(targetIndex);
       if (navigator.vibrate) {
-        navigator.vibrate(50); 
+        navigator.vibrate(50);
       }
     }
   }
@@ -123,7 +126,7 @@ export default function App() {
     if (draggingIndex !== null) {
       setDraggingIndex(null);
       if (navigator.vibrate) {
-        navigator.vibrate(100); 
+        navigator.vibrate(100);
       }
     }
   }
@@ -157,32 +160,36 @@ export default function App() {
           </h1>
         </div>
       </div>
-      <ToggleSwitch
-        checked={isDarkMode}
-        onChange={() => setIsDarkMode((prev) => !prev)}
-      />
+      <Dropdown selected={theme} onChange={(e) => setTheme(e.target.value)} />
       <div className="content">
         <form onSubmit={handleSubmit} className="new-item-form">
-          <div style={{display:'flex',flexDirection:'row',gap:'0.8rem',boxSizing:'border-box'}}>
-          <div className="form-row">
-            <label htmlFor="item">New Item</label>
-            <input
-              value={newItem}
-              onChange={(e) => setNewItem(e.target.value)}
-              type="text"
-              id="item"
-            />
-          </div>
-          <div className="form-row">
-            <label htmlFor="date">Due Date</label>
-            <input
-              value={newItemDate}
-              onChange={(e) => setNewItemDate(e.target.value)}
-              type="date"
-              id="date"
-              // style={{fontWeight:'500', width:'100%', height:'100%'}}
-            />
-          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "0.8rem",
+              boxSizing: "border-box",
+            }}
+          >
+            <div className="form-row">
+              <label htmlFor="item">New Item</label>
+              <input
+                value={newItem}
+                onChange={(e) => setNewItem(e.target.value)}
+                type="text"
+                id="item"
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="date">Due Date</label>
+              <input
+                value={newItemDate}
+                onChange={(e) => setNewItemDate(e.target.value)}
+                type="date"
+                id="date"
+                // style={{fontWeight:'500', width:'100%', height:'100%'}}
+              />
+            </div>
           </div>
           <button className="btn">Add</button>
         </form>
@@ -208,7 +215,7 @@ export default function App() {
                 <p className="date">{date}</p>
                 {groupedTodos[date].map((todo, index) => (
                   <li
-                    key={todo.id} 
+                    key={todo.id}
                     draggable
                     onDragStart={() => onDragStart(index)}
                     onDragOver={() => onDragOver(index)}
@@ -219,9 +226,7 @@ export default function App() {
                     style={{
                       opacity: draggingIndex === index ? 0.5 : 1,
                       borderLeft:
-                        draggingIndex === index
-                          ? `2px solid ${isDarkMode ? "#E2DBD5" : "#000"}`
-                          : undefined,
+                        draggingIndex === index ? `2px solid` : undefined,
                       paddingLeft: "1rem",
                       cursor: "move",
                     }}
@@ -231,9 +236,15 @@ export default function App() {
                       <input
                         type="checkbox"
                         checked={todo.completed}
-                        onChange={() => toggleTodo(todo.id)} 
+                        onChange={() => toggleTodo(todo.id)}
                       />
-                      <p style={{ margin: "4px", display: "flex",lineHeight:'1.5' }}>
+                      <p
+                        style={{
+                          margin: "4px",
+                          display: "flex",
+                          lineHeight: "1.5",
+                        }}
+                      >
                         {todo.title}
                       </p>
                     </label>
@@ -251,7 +262,7 @@ export default function App() {
                         width="1rem"
                         height="1rem"
                         viewBox="0 0 24 24"
-                        style={{display:'flex',justifyContent:'center'}}
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
                         <path
                           fill="currentColor"
@@ -265,6 +276,12 @@ export default function App() {
             ))}
           </ul>
         </form>
+        <Marquee speed={60}>
+          <div className="marquee">
+            <div>More to come 👀</div> <div>More to come 👀</div>{" "}
+            <div>More to come 👀</div> <div>More to come 👀</div>
+          </div>
+        </Marquee>
         <div className="footer">© Tingyi Lin | All rights reserved</div>
       </div>
     </>
